@@ -1,4 +1,7 @@
 /* Write your T-SQL query statement below */
-select e.name as Employee  from Employee as e where e.salary > (select m.salary from Employee as m where e.managerId = m.id)
+select e.name as Employee from Employee as e
+ join Employee as m
+where e.salary > m.salary
+ on e.managerId = m.id
 
 [object Object]
