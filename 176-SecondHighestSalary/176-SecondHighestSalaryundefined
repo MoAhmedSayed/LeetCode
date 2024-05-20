@@ -1,2 +1,8 @@
 /* Write your T-SQL query statement below */
+SELECT
+    (
+        SELECT distinct salary
+        FROM Employee
+        ORDER BY salary DESC offset 1 ROWS FETCH NEXT 1 ROWS only
+    ) AS SecondHighestSalary
 [
