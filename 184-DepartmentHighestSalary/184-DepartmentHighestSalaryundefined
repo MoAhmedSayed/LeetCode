@@ -1,0 +1,36 @@
+/* Write your T-SQL query statement below */
+select d.name AS Department,
+    e.name as Employee,
+    max_sal.max_salary AS Salary
+from Department as d
+    JOIN (select MAX(salary) AS max_salary, departmentId
+    from Employee
+    GROUP by departmentId) as max_sal
+    on max_sal.departmentId = d.id
+    JOIN Employee as e
+    on e.salary = max_sal.max_salary and e.departmentId = max_sal.departmentId
+[
+{"headers":{"Employee":["id","name","salary","departmentId"],"Department":["id","name"]},"rows":{"Employee":[[1,"Joe",
+70000,1],[2,"Jim",90000,1],[3,"Henry",80000,2],[4,"Sam",60000,2],[5,"Max",90000,1]],"Department":[[1,"IT"],[2,
+"Sales"]]}}
+{"headers":{"Employee":["id","name","salary","departmentId"],"Department":["id","name"]},"rows":{"Employee":[[1,"Joe",
+60000,1],[4,"Max",60000,2]],"Department":[[1,"IT"],[2,"HR"]]}}
+| Department | Employee | Salary |
+| ---------- | -------- | ------ |
+| Sales      | Henry    | 80000  |
+| IT         | Max      | 90000  |
+| IT         | Jim      | 90000  |
+| Department | Employee | Salary |
+| ---------- | -------- | ------ |
+| HR         | Max      | 60000  |
+| IT         | Joe      | 60000  |
+| Department | Employee | Salary |
+| ---------- | -------- | ------ |
+| IT         | Jim      | 90000  |
+| Sales      | Henry    | 80000  |
+| IT         | Max      | 90000  |
+| Department | Employee | Salary |
+| ---------- | -------- | ------ |
+| IT         | Joe      | 60000  |
+| HR         | Max      | 60000  |
+C
